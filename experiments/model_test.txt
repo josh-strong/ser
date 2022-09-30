@@ -7,37 +7,23 @@ Experiment file for model: test
   (fc1): Linear(in_features=9216, out_features=128, bias=True)
   (fc2): Linear(in_features=128, out_features=10, bias=True)
 )
-Train Epoch: 0 | Batch: 0/8| Loss: 2.3049
- Val Epoch: 0 | Avg Loss: 25.0947 | Accuracy: 0.1643
-Train Epoch: 0 | Batch: 1/8| Loss: 43.0594
- Val Epoch: 0 | Avg Loss: 5.1347 | Accuracy: 0.1853
-Train Epoch: 0 | Batch: 2/8| Loss: 6.9932
- Val Epoch: 0 | Avg Loss: 1.3302 | Accuracy: 0.6094
-Train Epoch: 0 | Batch: 3/8| Loss: 1.5980
- Val Epoch: 0 | Avg Loss: 1.0924 | Accuracy: 0.6672
-Train Epoch: 0 | Batch: 4/8| Loss: 1.2850
- Val Epoch: 0 | Avg Loss: 0.9756 | Accuracy: 0.6998
-Train Epoch: 0 | Batch: 5/8| Loss: 1.2529
- Val Epoch: 0 | Avg Loss: 0.6732 | Accuracy: 0.7736
-Train Epoch: 0 | Batch: 6/8| Loss: 0.9556
- Val Epoch: 0 | Avg Loss: 0.5750 | Accuracy: 0.8406
-Train Epoch: 0 | Batch: 7/8| Loss: 0.8923
- Val Epoch: 0 | Avg Loss: 0.4740 | Accuracy: 0.8466
-Train Epoch: 1 | Batch: 0/8| Loss: 0.7260
- Val Epoch: 1 | Avg Loss: 0.3713 | Accuracy: 0.8794
-Train Epoch: 1 | Batch: 1/8| Loss: 0.5855
- Val Epoch: 1 | Avg Loss: 0.2879 | Accuracy: 0.9184
-Train Epoch: 1 | Batch: 2/8| Loss: 0.5229
- Val Epoch: 1 | Avg Loss: 0.2696 | Accuracy: 0.9258
-Train Epoch: 1 | Batch: 3/8| Loss: 0.4639
- Val Epoch: 1 | Avg Loss: 0.2562 | Accuracy: 0.9295
-Train Epoch: 1 | Batch: 4/8| Loss: 0.4458
- Val Epoch: 1 | Avg Loss: 0.2398 | Accuracy: 0.9366
-Train Epoch: 1 | Batch: 5/8| Loss: 0.4131
- Val Epoch: 1 | Avg Loss: 0.2187 | Accuracy: 0.9421
-Train Epoch: 1 | Batch: 6/8| Loss: 0.3786
- Val Epoch: 1 | Avg Loss: 0.1935 | Accuracy: 0.949
-Train Epoch: 1 | Batch: 7/8| Loss: 0.3643
- Val Epoch: 1 | Avg Loss: 0.1706 | Accuracy: 0.9526
+Train Epoch: 0 | Batch: 0/8| Loss: 2.3040
+Train Epoch: 0 | Batch: 1/8| Loss: 55.3369
+Train Epoch: 0 | Batch: 2/8| Loss: 14.5264
+Train Epoch: 0 | Batch: 3/8| Loss: 2.0500
+Train Epoch: 0 | Batch: 4/8| Loss: 2.0564
+Train Epoch: 0 | Batch: 5/8| Loss: 1.8540
+Train Epoch: 0 | Batch: 6/8| Loss: 1.3257
+Train Epoch: 0 | Batch: 7/8| Loss: 0.8883
+ Val Epoch: 0 | Avg Loss: 0.3826 | Accuracy: 0.8835
+Train Epoch: 1 | Batch: 0/8| Loss: 0.8025
+Train Epoch: 1 | Batch: 1/8| Loss: 0.7416
+Train Epoch: 1 | Batch: 2/8| Loss: 0.6010
+Train Epoch: 1 | Batch: 3/8| Loss: 0.5099
+Train Epoch: 1 | Batch: 4/8| Loss: 0.4455
+Train Epoch: 1 | Batch: 5/8| Loss: 0.3853
+Train Epoch: 1 | Batch: 6/8| Loss: 0.3619
+Train Epoch: 1 | Batch: 7/8| Loss: 0.3752
+ Val Epoch: 1 | Avg Loss: 0.2048 | Accuracy: 0.947
 
- Best validation accuracy: 0.9526 occured at epoch: 1 and batch: 7
+ Best validation accuracy: 0.947 occured at epoch: 1
