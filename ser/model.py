@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from torchvision.models import resnet50, ResNet50_Weights
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
@@ -26,3 +28,11 @@ class Net(nn.Module):
         x = self.fc2(x)
         output = F.log_softmax(x, dim=1)
         return output
+
+def ResNet_Model():
+    weights = ResNet50_Weights.DEFAULT
+    model = resnet50(weights=weights)
+
+    preprocess = weights.transforms()
+
+    batch = preprocess()
