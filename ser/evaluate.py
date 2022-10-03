@@ -4,10 +4,10 @@ def evaluate(model, images):
     model.eval()
     output = model(images)
     pred = output.argmax(dim=1, keepdim=True)[0].item()
-    certainty = max(list(torch.exp(output)[0]))
+    certainty = max(list(torch.exp(output)[0])).item()
     pixels = images[0][0]
     print(_generate_ascii_art(pixels))
-    print(f"This is a {pred}")
+    print(f"This is a {pred} with prediction confidence {certainty}")
 
 def _generate_ascii_art(pixels):
     ascii_art = []

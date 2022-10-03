@@ -92,5 +92,5 @@ def infer(
     evaluate(model, images)
 
     # Print summary of experiment
-    print(f"Experiment name: {name} \n Name of run: {run}")
-    print(params)
+    print(f"Experiment name: {name} \n Name of run: {run} \n")
+    print("Model parameters:", params)
