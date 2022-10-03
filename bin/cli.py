@@ -4,12 +4,14 @@ from pathlib import Path
 import typer
 import torch
 import git
+import json
 
 from ser.train import train as run_train
 from ser.constants import RESULTS_DIR
 from ser.data import train_dataloader, val_dataloader, test_dataloader
 from ser.params import Params, save_params
 from ser.transforms import transforms, normalize
+from ser.evaluate import evaluate
 
 main = typer.Typer()
 
@@ -60,14 +62,22 @@ def train(
 
 @main.command()
 def infer(
-    run_path: str = typer.Option(
-        ..., "-rp", "--run-path", help="Path of model to use for inference."
+    name: str = typer.Option(
+        ..., "-n", "--name", help="Name of experiment to use for inference."
     ),
-):
-    run_path = Path("results/test/" + run_path)
-    label = 6
+    run: str = typer.Option(
+        ..., "-r", "--run", help="Name of run to use for inference."
+    ),
+    label: int = typer.Option(
+        ..., "-l", "--label", help="Label to inference."
+    )
 
-    # TODO load the parameters from the run_path so we can print them out!
+):
+    run_path = Path("./results") / name / run
+
+    # load the parameters from the run_path
+    with open(run_path / "params.json") as f:
+        params = json.load(f)
 
     # select image to run inference for
     dataloader = test_dataloader(1, transforms(normalize))
@@ -79,31 +89,8 @@ def infer(
     model = torch.load(run_path / "model.pt")
 
     # run inference
-    model.eval()
-    output = model(images)
-    pred = output.argmax(dim=1, keepdim=True)[0].item()
-    certainty = max(list(torch.exp(output)[0]))
-    pixels = images[0][0]
-    print(generate_ascii_art(pixels))
-    print(f"This is a {pred}")
+    evaluate(model, images)
 
-
-def generate_ascii_art(pixels):
-    ascii_art = []
-    for row in pixels:
-        line = []
-        for pixel in row:
-            line.append(pixel_to_char(pixel))
-        ascii_art.append("".join(line))
-    return "\n".join(ascii_art)
-
-
-def pixel_to_char(pixel):
-    if pixel > 0.99:
-        return "O"
-    elif pixel > 0.9:
-        return "o"
-    elif pixel > 0:
-        return "."
-    else:
-        return " "
+    # Print summary of experiment
+    print(f"Experiment name: {name} \n Name of run: {run}")
+    print(params)
