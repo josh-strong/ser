@@ -1,17 +1,17 @@
+import json
 from datetime import datetime
 from pathlib import Path
 
-import typer
-import torch
 import git
-import json
+import torch
+import typer
 
-from ser.train import train as run_train
 from ser.constants import RESULTS_DIR
-from ser.data import train_dataloader, val_dataloader, test_dataloader
-from ser.params import Params, save_params
-from ser.transforms import transforms, normalize
+from ser.data import test_dataloader, train_dataloader, val_dataloader
 from ser.evaluate import evaluate
+from ser.params import Params, save_params
+from ser.train import train as run_train
+from ser.transforms import normalize, transforms
 
 main = typer.Typer()
 
