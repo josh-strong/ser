@@ -1,8 +1,12 @@
 from torch import optim
 import torch
 import torch.nn.functional as F
+import utils
 
 from ser.model import Net
+
+global plotter
+plotter = utils.VisdomLinePlotter(env_name="Tutorial Plots")
 
 
 def train(run_path, params, train_dataloader, val_dataloader, device):
@@ -31,8 +35,15 @@ def _train_batch(model, dataloader, optimizer, epoch, device):
         loss.backward()
         optimizer.step()
         print(
-            f"Train Epoch: {epoch} | Batch: {i}/{len(dataloader)} "
+            f"Train Epoch: {epoch} | Batch: {i}/{len(dataloader)}"
             f"| Loss: {loss.item():.4f}"
+        )
+        plotter.plot(
+            "Loss",
+            "Batch",
+            "Train Loss",
+            epoch * len(dataloader) + i,
+            loss.item(),
         )
 
 
@@ -50,3 +61,4 @@ def _val_batch(model, dataloader, device, epoch):
     val_loss /= len(dataloader.dataset)
     accuracy = correct / len(dataloader.dataset)
     print(f"Val Epoch: {epoch} | Avg Loss: {val_loss:.4f} | Accuracy: {accuracy}")
+    plotter.plot("Accuracy", "Validation", "Validation", epoch, accuracy)
