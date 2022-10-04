@@ -56,6 +56,7 @@ def _train_batch(model, dataloader, optimizer, epoch, device):
             epoch * len(dataloader) + i,
             loss.item(),
         )
+
     accuracy = correct / len(dataloader.dataset)
     tr_loss /= len(dataloader)
     plotter.plot("Accuracy", "Training", "Accuracy", epoch, accuracy)
