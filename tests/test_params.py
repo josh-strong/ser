@@ -3,8 +3,11 @@ import tempfile
 import shutil
 import json
 from pathlib import Path
+from ser.constants import TEST_DIR
 
+test_params_input = Params("test", 5, 4000, 0.01, "abcdefgh")
 tmp_dirpath = tempfile.mkdtemp()
+save_params(TEST_DIR / tmp_dirpath, test_params_input)
 
 
 def test_save_params():
