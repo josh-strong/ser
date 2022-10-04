@@ -2,6 +2,8 @@ from torch import optim
 import torch
 import torch.nn.functional as F
 import utils
+import random
+from transforms import flip
 
 from ser.model import Net
 
@@ -26,7 +28,11 @@ def train(run_path, params, train_dataloader, val_dataloader, device):
 
 
 def _train_batch(model, dataloader, optimizer, epoch, device):
+    tr_loss = 0
+    correct = 0
     for i, (images, labels) in enumerate(dataloader):
+        if random.uniform(0, 1) > 0.5:
+            images = flip()(images)
         images, labels = images.to(device), labels.to(device)
         model.train()
         optimizer.zero_grad()
@@ -34,17 +40,26 @@ def _train_batch(model, dataloader, optimizer, epoch, device):
         loss = F.nll_loss(output, labels)
         loss.backward()
         optimizer.step()
+
+        pred = output.argmax(dim=1, keepdim=True)
+        correct += pred.eq(labels.view_as(pred)).sum().item()
+        tr_loss += loss.item()
+
         print(
             f"Train Epoch: {epoch} | Batch: {i}/{len(dataloader)}"
             f"| Loss: {loss.item():.4f}"
         )
         plotter.plot(
-            "Loss",
+            "Training Loss",
             "Batch",
             "Train Loss",
             epoch * len(dataloader) + i,
             loss.item(),
         )
+    accuracy = correct / len(dataloader.dataset)
+    tr_loss /= len(dataloader)
+    plotter.plot("Accuracy", "Training", "Accuracy", epoch, accuracy)
+    plotter.plot("Loss", "Training", "Loss", epoch, tr_loss)
 
 
 @torch.no_grad()
@@ -61,4 +76,5 @@ def _val_batch(model, dataloader, device, epoch):
     val_loss /= len(dataloader.dataset)
     accuracy = correct / len(dataloader.dataset)
     print(f"Val Epoch: {epoch} | Avg Loss: {val_loss:.4f} | Accuracy: {accuracy}")
-    plotter.plot("Accuracy", "Validation", "Validation", epoch, accuracy)
+    plotter.plot("Accuracy", "Validation", "Accuracy", epoch, accuracy)
+    plotter.plot("Loss", "Validation", "Loss", epoch, val_loss)
