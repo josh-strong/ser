@@ -20,6 +20,7 @@ def normalize():
 def flip():
     """
     Flip a tensor both vertically and horizontally
+    [..., H, W] shape
     """
     return torch_transforms.Compose(
         [

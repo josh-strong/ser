@@ -67,20 +67,21 @@ def infer(
     label: int = typer.Option(
         6, "-l", "--label", help="Label of image to show to the model"
     ),
+    flip_bool: bool = typer.Option(
+        False, "-f", "--flip", help="Bool to apply flip transformation"
+    ),
 ):
     """Run the inference code"""
     params = load_params(run_path)
     model = torch.load(run_path / "model.pt")
-    image = _select_test_image(label)
+    image = _select_test_image(label, flip_bool)
     run_infer(params, model, image, label)
 
 
-def _select_test_image(label):
-    # TODO `ts` is a list of transformations that will be applied to the loaded
-    # image. This works... but in order to add a transformation, or change one,
-    # we now have to come and edit the code... which sucks. What if we could
-    # configure the transformations via the cli?
-    ts = [normalize, flip]
+def _select_test_image(label, flip_bool):
+    ts = [normalize]
+    if flip_bool:
+        ts.append(flip)
     dataloader = test_dataloader(1, transforms(*ts))
     images, labels = next(iter(dataloader))
     while labels[0].item() != label:
